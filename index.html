@@ -33,20 +33,28 @@
       .hidden {
         display: hidden;
       }
+
+      .flex {
+        display: flex;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
     </style>
   </head>
   <body>
     <header class="bg-gray-900">
-      <div>
+      <div class="flex justify-between">
         <img src="" alt="" />
-        <a href="" class="text-white">Pricing</a>
-        <a href="" class="text-white">Courses</a>
-        <a href="" class="text-white">Blog</a>
-        <a href="" class="text-white">Forum</a>
+        <a href="" class="text-white block">Pricing</a>
+        <a href="" class="text-white block">Courses</a>
+        <a href="" class="text-white block">Blog</a>
+        <a href="" class="text-white block">Forum</a>
       </div>
 
       <div>
-        <a href="" class="text-white">Login</a>
+        <a href="" class="text-white block">Login</a>
         <button>Sign Up</button>
       </div>
     </header>
