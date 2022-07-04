@@ -131,11 +131,23 @@
       .text-sm {
         font-size: 14px;
       }
+
+      .full-width {
+        width: 100%;
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .z-10 {
+        z-index: 10;
+      }
     </style>
   </head>
   <body>
     <header
-      class="bg-gray-900 flex justify-between py-18"
+      class="flex justify-between py-18 relative z-10"
       style="padding: 18px 12px"
     >
       <div class="flex justify-center items-center">
@@ -155,11 +167,15 @@
           Login
         </a>
         <button
-          class="bg-brand-teal text-white rounded-full font-bold py-12 px-28 uppercase text-sm"
+          class="bg-brand-teal text-white rounded-full font-bold py-12 px-28 uppercase text-sm border-none"
         >
           Sign Up
         </button>
       </div>
     </header>
+
+    <section class="relative" style="top: -81px">
+      <img src="./img/hero.png" alt="" class="full-width" />
+    </section>
   </body>
 </html>
