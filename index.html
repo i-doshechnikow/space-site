@@ -136,16 +136,16 @@
         width: 100%;
       }
 
-      .full-height {
-        height: 100%;
-      }
-
       .relative {
         position: relative;
       }
 
       .z-10 {
         z-index: 10;
+      }
+
+      .object-cover {
+        object-fit: cover;
       }
     </style>
   </head>
@@ -180,7 +180,7 @@
 
     <section class="relative" style="top: -81px">
       <video
-        class="full-width full-height"
+        class="full-width object-cover"
         style="min-height: 550px"
         src="./video/galaxy.mp4"
         loop="loop"
@@ -188,7 +188,6 @@
         playsinline
         muted="muted"
       ></video>
-      <img src="./img/hero.png" alt="" class="full-width" />
     </section>
   </body>
 </html>
