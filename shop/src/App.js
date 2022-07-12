@@ -1,3 +1,5 @@
+import "./categories.styles.scss";
+
 export default () => {
   const categories = [
     { id: 1, title: "Hats" },
