@@ -34,7 +34,7 @@ export default () => {
   return (
     <>
       <Outlet />
-      <Directory categories={categories} />;
+      <Directory categories={categories} />
     </>
   );
 };
