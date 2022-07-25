@@ -7,6 +7,7 @@ import {
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from "../../src/utils/firebase/firebase.utils";
+import SignUpForm from "../components/sign-up-form/signUpForm";
 
 export default () => {
   useEffect(() => {
@@ -31,6 +32,7 @@ export default () => {
       <button onClick={signInWithGoogleRedirect}>
         sign in with google redirect
       </button>
+      <SignUpForm />
     </div>
   );
 };
