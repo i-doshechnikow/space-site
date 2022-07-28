@@ -6,8 +6,8 @@ import {
   signInWithGooglePopup,
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
-} from "../../src/utils/firebase/firebase.utils";
-import SignUpForm from "../components/sign-up-form/signUpForm";
+} from "../../utils/firebase/firebase.utils";
+import SignUpForm from "../../components/sign-up-form/signUpForm";
 
 export default () => {
   useEffect(() => {
