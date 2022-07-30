@@ -10,6 +10,8 @@ import {
 import SignUpForm from "../../components/sign-up-form/signUpForm";
 import SignInForm from "../../components/sign-in-form/signInForm";
 
+import "./authentification.scss";
+
 export default () => {
   useEffect(() => {
     const authRequest = async () => {
@@ -27,12 +29,12 @@ export default () => {
   };
 
   return (
-    <div>
-      <h1>sign in page</h1>
-      <button onClick={logGoogleUser}>sign in with google</button>
+    <div className="authentification-container">
+      {/* <h1>sign in page</h1> */}
+      {/* <button onClick={logGoogleUser}>sign in with google</button>
       <button onClick={signInWithGoogleRedirect}>
         sign in with google redirect
-      </button>
+      </button> */}
       <SignUpForm />
       <SignInForm />
     </div>
