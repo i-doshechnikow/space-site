@@ -35,7 +35,7 @@ export default () => {
     //   }, {})
     // );
 
-    setFormFields(defaultFormFields)
+    setFormFields(defaultFormFields);
   };
 
   const signInGoogleUser = async () => {
@@ -55,7 +55,13 @@ export default () => {
       console.log(response);
 
       resetFormFields();
-    } catch (error) {}
+    } catch ({ code }) {
+      if (code === "auth/wrong-password" || code === "auth/user-not-found") {
+        console.log("incorrect email or password");
+      } else {
+        console.log("something went wrong");
+      }
+    }
   };
 
   return (
