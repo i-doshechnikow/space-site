@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import { UserContext } from "../../context/user";
 
 import FormInput from "../form-input/formInput";
 import Button from "../button/button";
@@ -17,6 +19,8 @@ const defaultFormFields = {
 };
 
 export default () => {
+  const { setCurrentUser } = useContext(UserContext);
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -47,13 +51,13 @@ export default () => {
     e.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
 
-      console.log(response);
-
+      setCurrentUser(user);
+      
       resetFormFields();
     } catch ({ code }) {
       if (code === "auth/wrong-password" || code === "auth/user-not-found") {

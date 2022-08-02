@@ -1,25 +1,31 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
+
+import { UserContext } from "../../context/user";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 
 import "./navigation.styles.scss";
 
-export default () => (
-  <Fragment>
-    <div className="navigation">
-      <Link className="logo-container" to="/">
-        <CrownLogo className="logo" />
-      </Link>
-      <div className="nav-links-container">
-        <Link className="nav-link" to="/shop">
-          SHOP
+export default () => {
+  const { currentUser } = useContext(UserContext);
+
+  return (
+    <Fragment>
+      <div className="navigation">
+        <Link className="logo-container" to="/">
+          <CrownLogo className="logo" />
         </Link>
-        <Link className="nav-link" to="/auth">
-          SIGN IN
-        </Link>
+        <div className="nav-links-container">
+          <Link className="nav-link" to="/shop">
+            SHOP
+          </Link>
+          <Link className="nav-link" to="/auth">
+            SIGN IN
+          </Link>
+        </div>
       </div>
-    </div>
-    <Outlet />
-  </Fragment>
-);
+      <Outlet />
+    </Fragment>
+  );
+};
