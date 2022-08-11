@@ -44,6 +44,7 @@ export default () => {
 
   const signInGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
+
     await createUserDocumentFromAuth(user);
   };
 
@@ -57,7 +58,7 @@ export default () => {
       );
 
       setCurrentUser(user);
-      
+
       resetFormFields();
     } catch ({ code }) {
       if (code === "auth/wrong-password" || code === "auth/user-not-found") {
