@@ -4,10 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home/home";
 import Navigation from "./routes/navigation/navigation";
 import Authentification from "./routes/authentification/authentification";
+import Shop from "./routes/shop/shop";
 
-const Shop = () => <div>shop</div>;
-
-export default () => {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
@@ -18,3 +17,5 @@ export default () => {
     </Routes>
   );
 };
+
+export default App;
