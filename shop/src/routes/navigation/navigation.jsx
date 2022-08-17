@@ -2,6 +2,7 @@ import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import CartIcon from "../../components/cart-icon/cartIcon";
+import CartDropdown from "../../components/cart-dropdown/cartDropdown";
 
 import { UserContext } from "../../context/user";
 
@@ -30,6 +31,7 @@ const Navigation = () => {
             </Link>
           )}
           <CartIcon />
+          <CartDropdown />
         </div>
       </div>
       <Outlet />
