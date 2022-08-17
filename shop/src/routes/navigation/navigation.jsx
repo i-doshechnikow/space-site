@@ -5,6 +5,7 @@ import CartIcon from "../../components/cart-icon/cartIcon";
 import CartDropdown from "../../components/cart-dropdown/cartDropdown";
 
 import { UserContext } from "../../context/user";
+import { CartContext } from "../../context/cart";
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 
@@ -12,6 +13,7 @@ import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <Fragment>
@@ -31,7 +33,7 @@ const Navigation = () => {
             </Link>
           )}
           <CartIcon />
-          <CartDropdown />
+          {isCartOpen && <CartDropdown />}
         </div>
       </div>
       <Outlet />
