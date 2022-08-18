@@ -8,15 +8,18 @@ export const CartContext = createContext({
 
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState({ ked: 1 });
+  const [cartItems, setCartItems] = useState({});
 
-  const addItemToCart = (productToAdd) => {
-    if (!cartItems.hasOwnProperty(productToAdd)) {
-      setCartItems({ ...cartItems, [productToAdd]: 1 });
+  const addItemToCart = ({ name, imageUrl, price }) => {
+    if (!cartItems.hasOwnProperty(name, imageUrl, price)) {
+      setCartItems({ ...cartItems, [name]: { imageUrl, price, quantity: 1 } });
     } else {
       setCartItems({
         ...cartItems,
-        [productToAdd]: cartItems[productToAdd] + 1,
+        [name]: {
+          ...cartItems[name],
+          quantity: (cartItems[name]["quantity"] += 1),
+        },
       });
     }
   };

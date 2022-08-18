@@ -11,11 +11,11 @@ const CartDropdown = () => {
   return (
     <div className="cart-dropdown-container">
       <div className="cart-items">
-        {Object.entries(cartItems).map(([name, quantity]) => (
+        {Object.entries(cartItems).map(([name, productProperty]) => (
           <CartItem
             key={name + `${Math.random()}`}
             name={name}
-            quantity={quantity}
+            {...productProperty}
           />
         ))}
       </div>

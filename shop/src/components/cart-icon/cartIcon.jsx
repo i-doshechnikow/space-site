@@ -5,14 +5,19 @@ import { CartContext } from "../../context/cart";
 import "./cartIcon.scss";
 
 const CartIcon = () => {
-  const { setIsCartOpen } = useContext(CartContext);
+  const { setIsCartOpen, cartItems } = useContext(CartContext);
 
   const toggleCart = () => setIsCartOpen((oldState) => !oldState);
 
   return (
     <div className="cart-icon-container" onClick={toggleCart}>
       <ShoppingBag className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">
+        {Object.values(cartItems).reduce(
+          (acc, { quantity }) => acc + quantity,
+          0
+        )}
+      </span>
     </div>
   );
 };
