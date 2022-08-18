@@ -24,7 +24,31 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart };
+  const removeItemFromCart = (name) => {
+    setCartItems(
+      Object.entries(cartItems).reduce((acc, [key, values]) => {
+        if (key === name && cartItems[key].quantity !== 1) {
+          acc[key] = { ...values, quantity: (cartItems[key]["quantity"] -= 1) };
+          return acc;
+        }
+
+        if (key === name && cartItems[key].quantity === 1) {
+          return acc;
+        }
+
+        acc[key] = { ...cartItems[key] };
+        return acc;
+      }, {})
+    );
+  };
+
+  const value = {
+    isCartOpen,
+    setIsCartOpen,
+    cartItems,
+    addItemToCart,
+    removeItemFromCart,
+  };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
