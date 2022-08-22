@@ -1,7 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 
 // import SHOP_DATA from "../shop-data.js";
-import { addCollectionAndDocuments } from "../utils/firebase/firebase.utils.js";
+import {
+  addCollectionAndDocuments,
+  getCategoriesAndDocuments,
+} from "../utils/firebase/firebase.utils.js";
 
 export const ProductContext = createContext({
   products: [],
@@ -9,6 +12,15 @@ export const ProductContext = createContext({
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getCategoriesFromFirestore = async () => {
+      let a = await getCategoriesAndDocuments();
+      console.log("a :>> ", a);
+    };
+
+    getCategoriesFromFirestore();
+  }, []);
 
   //NOTE: set new values to database, if it needs
   // useEffect(() => {
