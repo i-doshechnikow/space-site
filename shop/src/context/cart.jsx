@@ -4,6 +4,9 @@ export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: {},
+  addItemToCart: () => {},
+  removeItemFromCart: () => {},
+  clearItemFromCart: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -42,12 +45,25 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const clearItemFromCart = (name) => {
+    setCartItems(
+      Object.entries(cartItems).reduce((acc, [key]) => {
+        if (key !== name) {
+          acc[key] = { ...cartItems[key] };
+        }
+
+        return acc;
+      }, {})
+    );
+  };
+
   const value = {
     isCartOpen,
     setIsCartOpen,
     cartItems,
     addItemToCart,
     removeItemFromCart,
+    clearItemFromCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

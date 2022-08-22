@@ -1,11 +1,13 @@
 import { useContext } from "react";
+import { v4 } from "uuid";
+
+import CheckoutItem from "../../components/checkout-item/checkoutItem";
 import { CartContext } from "../../context/cart";
 
 import "./checkout.scss";
 
 const Checkout = () => {
-  const { cartItems, removeItemFromCart, addItemToCart } =
-    useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
 
   return (
     <div className="checkout-container">
@@ -26,23 +28,17 @@ const Checkout = () => {
           <span>Remove</span>
         </div>
       </div>
-      {Object.entries(cartItems).map(
-        ([name, { imageUrl, price, quantity }]) => {
-          return (
-            <div>
-              <h2>{name}</h2>
-              <name>{quantity}</name>
-              <button onClick={() => removeItemFromCart(name)}>
-                decrement
-              </button>
-              <button onClick={() => addItemToCart({ name, imageUrl, price })}>
-                increment
-              </button>
-            </div>
-          );
-        }
-      )}
-      <span className="total">Total: 0</span>
+      {Object.entries(cartItems).map(([name, itemValues]) => (
+        <CheckoutItem key={v4()} name={name} {...itemValues} />
+      ))}
+      <span className="total">
+        Total:
+        {Object.values(cartItems).reduce(
+          (acc, { price, quantity }) => acc + price * quantity,
+          0
+        )}
+        $
+      </span>
     </div>
   );
 };
