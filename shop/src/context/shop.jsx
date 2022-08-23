@@ -7,7 +7,7 @@ import {
 } from "../utils/firebase/firebase.utils.js";
 
 export const CategoriesContext = createContext({
-  categoriesMap: {},
+  categories: {},
 });
 
 export const CategoriesProvider = ({ children }) => {
