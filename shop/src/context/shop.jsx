@@ -6,17 +6,18 @@ import {
   getCategoriesAndDocuments,
 } from "../utils/firebase/firebase.utils.js";
 
-export const ProductContext = createContext({
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
-export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+export const CategoriesProvider = ({ children }) => {
+  const [categories, setCategories] = useState({});
 
   useEffect(() => {
     const getCategoriesFromFirestore = async () => {
-      let a = await getCategoriesAndDocuments();
-      console.log("a :>> ", a);
+      let categoryMap = await getCategoriesAndDocuments();
+
+      setCategories(categoryMap);
     };
 
     getCategoriesFromFirestore();
@@ -27,9 +28,11 @@ export const ProductsProvider = ({ children }) => {
   //   addCollectionAndDocuments("categories", SHOP_DATA);
   // }, []);
 
-  const value = { products };
+  const value = { categories };
 
   return (
-    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
+    <CategoriesContext.Provider value={value}>
+      {children}
+    </CategoriesContext.Provider>
   );
 };
