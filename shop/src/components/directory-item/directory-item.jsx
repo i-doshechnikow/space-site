@@ -1,5 +1,5 @@
 import React from "react";
-import "./category-item.styles.scss";
+import "./directory.scss";
 
 export default ({ category: { title, imageUrl } }) => (
   <div className="category-container">
