@@ -1,17 +1,14 @@
 import React from "react";
-import "./directory.scss";
+import { BackgroundImage, Body, DirectoryItemContainer } from "./directory";
 
-export default ({ category: { title, imageUrl } }) => (
-  <div className="category-container">
-    <div
-      className="background-image"
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-      }}
-    />
-    <div className="category-body-container">
+const DirectoryItem = ({ category: { title, imageUrl } }) => (
+  <DirectoryItemContainer>
+    <BackgroundImage imageUrl={imageUrl}/>
+    <Body>
       <h2>{title}</h2>
       <p>Shop now</p>
-    </div>
-  </div>
+    </Body>
+  </DirectoryItemContainer>
 );
+
+export default DirectoryItem;
