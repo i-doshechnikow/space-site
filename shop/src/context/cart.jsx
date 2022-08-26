@@ -9,6 +9,11 @@ export const CartContext = createContext({
   clearItemFromCart: () => {},
 });
 
+const CART_ACTION_TYPES = {
+  SET_CART_ITEMS: "SET_CART_ITEMS",
+  SET_IS_CART_OPEN: "SET_IS_CART_OPEN",
+};
+
 const INITIAL_STATE = {
   isCartOpen: false,
   cartItems: {},
@@ -20,12 +25,12 @@ const cartReducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "SET_CART_ITEMS":
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
       return {
         ...state,
         cartItems: payload,
       };
-    case "SET_IS_CART_OPEN":
+    case CART_ACTION_TYPES.SET_IS_CART_OPEN:
       return {
         ...state,
         isCartOpen: payload,
@@ -42,12 +47,12 @@ export const CartProvider = ({ children }) => {
   const addItemToCart = ({ name, imageUrl, price }) => {
     if (!cartItems.hasOwnProperty(name, imageUrl, price)) {
       dispatch({
-        type: "SET_CART_ITEMS",
+        type: CART_ACTION_TYPES.SET_CART_ITEMS,
         payload: { ...cartItems, [name]: { imageUrl, price, quantity: 1 } },
       });
     } else {
       dispatch({
-        type: "SET_CART_ITEMS",
+        type: CART_ACTION_TYPES.SET_CART_ITEMS,
         payload: {
           ...cartItems,
           [name]: {
@@ -61,7 +66,7 @@ export const CartProvider = ({ children }) => {
 
   const removeItemFromCart = (name) => {
     dispatch({
-      type: "SET_CART_ITEMS",
+      type: CART_ACTION_TYPES.SET_CART_ITEMS,
       payload: Object.entries(cartItems).reduce((acc, [key, values]) => {
         if (key === name && cartItems[key].quantity !== 1) {
           acc[key] = { ...values, quantity: (cartItems[key]["quantity"] -= 1) };
@@ -80,7 +85,7 @@ export const CartProvider = ({ children }) => {
 
   const clearItemFromCart = (name) => {
     dispatch({
-      type: "SET_CART_ITEMS",
+      type: CART_ACTION_TYPES.SET_CART_ITEMS,
       payload: Object.entries(cartItems).reduce((acc, [key]) => {
         if (key !== name) {
           acc[key] = { ...cartItems[key] };
@@ -92,7 +97,10 @@ export const CartProvider = ({ children }) => {
   };
 
   const setIsCartOpen = () => {
-    dispatch({ type: "SET_IS_CART_OPEN", payload: !isCartOpen });
+    dispatch({
+      type: CART_ACTION_TYPES.SET_IS_CART_OPEN,
+      payload: !isCartOpen,
+    });
   };
 
   const value = {
