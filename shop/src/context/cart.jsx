@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const CartContext = createContext({
   isCartOpen: false,
@@ -9,27 +9,60 @@ export const CartContext = createContext({
   clearItemFromCart: () => {},
 });
 
+const INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: {},
+  cartCount: 0,
+  cartTotal: 0,
+};
+
+const cartReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case "SET_CART_ITEMS":
+      return {
+        ...state,
+        cartItems: payload,
+      };
+    case "SET_IS_CART_OPEN":
+      return {
+        ...state,
+        isCartOpen: payload,
+      };
+    default:
+      throw new Error(`Unhandled type ${type} in cartReducer`);
+  }
+};
+
 export const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState({});
+  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+  const { isCartOpen, cartItems } = state;
 
   const addItemToCart = ({ name, imageUrl, price }) => {
     if (!cartItems.hasOwnProperty(name, imageUrl, price)) {
-      setCartItems({ ...cartItems, [name]: { imageUrl, price, quantity: 1 } });
+      dispatch({
+        type: "SET_CART_ITEMS",
+        payload: { ...cartItems, [name]: { imageUrl, price, quantity: 1 } },
+      });
     } else {
-      setCartItems({
-        ...cartItems,
-        [name]: {
-          ...cartItems[name],
-          quantity: (cartItems[name]["quantity"] += 1),
+      dispatch({
+        type: "SET_CART_ITEMS",
+        payload: {
+          ...cartItems,
+          [name]: {
+            ...cartItems[name],
+            quantity: (cartItems[name]["quantity"] += 1),
+          },
         },
       });
     }
   };
 
   const removeItemFromCart = (name) => {
-    setCartItems(
-      Object.entries(cartItems).reduce((acc, [key, values]) => {
+    dispatch({
+      type: "SET_CART_ITEMS",
+      payload: Object.entries(cartItems).reduce((acc, [key, values]) => {
         if (key === name && cartItems[key].quantity !== 1) {
           acc[key] = { ...values, quantity: (cartItems[key]["quantity"] -= 1) };
           return acc;
@@ -41,20 +74,25 @@ export const CartProvider = ({ children }) => {
 
         acc[key] = { ...cartItems[key] };
         return acc;
-      }, {})
-    );
+      }, {}),
+    });
   };
 
   const clearItemFromCart = (name) => {
-    setCartItems(
-      Object.entries(cartItems).reduce((acc, [key]) => {
+    dispatch({
+      type: "SET_CART_ITEMS",
+      payload: Object.entries(cartItems).reduce((acc, [key]) => {
         if (key !== name) {
           acc[key] = { ...cartItems[key] };
         }
 
         return acc;
-      }, {})
-    );
+      }, {}),
+    });
+  };
+
+  const setIsCartOpen = () => {
+    dispatch({ type: "SET_IS_CART_OPEN", payload: !isCartOpen });
   };
 
   const value = {

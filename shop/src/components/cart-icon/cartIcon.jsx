@@ -9,10 +9,8 @@ import {
 const CartIcon = () => {
   const { setIsCartOpen, cartItems } = useContext(CartContext);
 
-  const toggleCart = () => setIsCartOpen((oldState) => !oldState);
-
   return (
-    <CartIconContainer onClick={toggleCart}>
+    <CartIconContainer onClick={setIsCartOpen}>
       <ShoppingBagSvg />
       <ItemCount>
         {Object.values(cartItems).reduce(
