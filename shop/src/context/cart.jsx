@@ -1,4 +1,5 @@
 import { createContext, useReducer, useState } from "react";
+import { actionCreator } from "../utils/reducers/utils";
 
 export const CartContext = createContext({
   isCartOpen: false,
@@ -97,10 +98,12 @@ export const CartProvider = ({ children }) => {
   };
 
   const setIsCartOpen = () => {
-    dispatch({
-      type: CART_ACTION_TYPES.SET_IS_CART_OPEN,
-      payload: !isCartOpen,
-    });
+    // dispatch({
+    //   type: CART_ACTION_TYPES.SET_IS_CART_OPEN,
+    //   payload: !isCartOpen,
+    // });
+    // or this method
+    dispatch(actionCreator(CART_ACTION_TYPES.SET_IS_CART_OPEN, !isCartOpen));
   };
 
   const value = {
