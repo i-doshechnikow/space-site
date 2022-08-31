@@ -13,10 +13,18 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleWares = [logger];
+const middleWares = [];
+
+if (process.env.NODE_ENV !== "production") {
+  middleWares.push(logger);
+}
 
 const composedEnhancers = compose(applyMiddleware(...middleWares));
 
-export const store = createStore(persistedReducer, undefined, composedEnhancers);
+export const store = createStore(
+  persistedReducer,
+  undefined,
+  composedEnhancers
+);
 
 export const persistor = persistStore(store);
